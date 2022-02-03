@@ -11,16 +11,30 @@ namespace mission4.Models
                 //blank for now
         }
 
-        public DbSet<AddFilm> responses { get; set; }
+        public DbSet<AddFilmModel> responses { get; set; }
+        public DbSet< Category> Categories { get; set; }
 
+  
+        //Seed data
         protected override void OnModelCreating(ModelBuilder mb)
         {
-            mb.Entity<AddFilm>().HasData(
+            mb.Entity<Category>().HasData(
+                new Category { CategoryId = 1, CategoryName = "Action/Adventure"},
+                new Category { CategoryId = 2, CategoryName = "Comedy" },
+                new Category { CategoryId = 3, CategoryName = "Drama" },
+                new Category { CategoryId = 4, CategoryName = "Family" },
+                new Category { CategoryId = 5, CategoryName = "Horror/Suspense" },
+                new Category { CategoryId = 6, CategoryName = "Miscellaneous" },
+                new Category { CategoryId = 7, CategoryName = "Television" },
+                new Category { CategoryId = 8, CategoryName = "VHS" }
+                );
 
-                new AddFilm
+            mb.Entity<AddFilmModel>().HasData(
+
+                new AddFilmModel
                 {
                     AppId = 1,
-                    Category = "Family",
+                    CategoryId = 4,
                     Title = "Cinderella",
                     Year = 1996,
                     Director = "Some Guy",
@@ -30,10 +44,10 @@ namespace mission4.Models
                     Notes = "Such a great movie",
                 },
 
-                new AddFilm
+                new AddFilmModel
                 {
                     AppId = 2,
-                    Category = "Family",
+                    CategoryId = 4,
                     Title = "Pocahontus",
                     Year = 1990,
                     Director = "Some Guy",
@@ -43,10 +57,10 @@ namespace mission4.Models
                     Notes = "Such a great movie",
                 },
 
-                new AddFilm
+                new AddFilmModel
                 {
-                    AppId = 2,
-                    Category = "Family",
+                    AppId = 3,
+                    CategoryId = 4,
                     Title = "Princess and the Frog",
                     Year = 2010,
                     Director = "Some Guy",
