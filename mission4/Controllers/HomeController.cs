@@ -43,9 +43,19 @@ namespace mission4.Controllers
         [HttpPost]
         public IActionResult AddFilm(AddFilmModel AF)
         {
-            FilmsContext.Add(AF);
-            FilmsContext.SaveChanges();
-            return View("Index", AF);
+            if (ModelState.IsValid)
+            {
+                FilmsContext.Add(AF);
+                FilmsContext.SaveChanges();
+                return View("Index", AF);
+            }
+            else //if invalid
+            {
+                ViewBag.Categories = FilmsContext.Categories.ToList();
+
+                return View(AF);
+            }
+
         }
 
         [HttpGet]
@@ -56,6 +66,41 @@ namespace mission4.Controllers
                 .OrderBy(x => x.Title)
                 .ToList();
             return View(filmData);
+        }
+
+        [HttpGet]
+        public IActionResult Edit (int id )
+        {
+            ViewBag.Categories = FilmsContext.Categories.ToList();
+
+            var film = FilmsContext.responses.Single(x => x.AppId == id);
+
+            return View("AddFilm", film);
+        }
+
+        [HttpPost]
+        public IActionResult Edit (AddFilmModel AF)
+        {
+            FilmsContext.Update(AF);
+            FilmsContext.SaveChanges();
+
+            return RedirectToAction("Collection");
+        }
+
+        [HttpGet]
+        public IActionResult Delete (int id)
+        {
+            var film = FilmsContext.responses.Single(x => x.AppId == id);
+
+            return View(film);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(AddFilmModel AF)
+        {
+            FilmsContext.responses.Remove(AF);
+            FilmsContext.SaveChanges();
+            return RedirectToAction("Collection");
         }
 
     }

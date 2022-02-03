@@ -8,9 +8,13 @@ namespace mission4.Models
         [Key]
         [Required]
         public int AppId { get; set; }
+        [Required]
         public string Title { get; set; }
+        [Required]
         public ushort Year { get; set; }
+        [Required]
         public string Director { get; set; }
+        [Required]
         public string Rating { get; set; }
         public bool Edited { get; set; }
         public string Lent { get; set; }
